@@ -1,11 +1,38 @@
-#include<stdio.h>
-#include<cs50.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <ctype.h>
+#include <cs50.h>
 
-int main()
+int main(int argc, string args[])
 {
-String s1;
-int n;
-scanf("%d",n);
-printf("plaintext : ");
-scanf("%s",s1);
+    if (argc != 2)
+    {
+        printf("Input Format : ./caesar k");
+        return 1;
+    }
 
+    int k = atoi(args[1]) % 26; 
+    string plaintext = get_string();
+
+    printf("ciphertext: ");
+
+    for (int i = 0; i < strlen(plaintext); i++)
+    {
+        if (!isalpha(plaintext[i]))
+        {
+            printf("%c", plaintext[i]);
+            continue;
+        }
+
+        int ascii = isupper(plaintext[i]) ? 65 : 97;
+
+        int pi = plaintext[i] - ascii;
+        int ci = (pi + k) % 26;
+
+        printf("%c", ci + ascii);
+    }
+
+    printf("\n");
+return 0;
+}
